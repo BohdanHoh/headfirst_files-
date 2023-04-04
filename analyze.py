@@ -1,5 +1,39 @@
 import ch1text
 
+def count_syllables(words):
+    count = 0
+
+    for word in words:
+        word_count = count_syllables_in_word(word)
+        count = count + word_count
+
+    return count
+
+def count_syllables_in_word(word):
+    count = 0
+
+    endings = '.,;!?:'
+    last_char = word[-1]
+
+    if last_char in endings:
+        processed_word = word
+
+    if len(word) <= 3:
+        return 1
+
+    vowels = "aeiouAEIOU"
+    prev_char_was_vowel = False
+
+    for char in word:
+        if char in vowels:
+           if not prev_char_was_vowel:
+            count = count + 1
+           prev_char_was_vowel = True
+        else:
+            prev_char_was_vowel = False   
+
+    return count
+
 def count_sentences(text):
     count = 0
 
@@ -19,8 +53,10 @@ def compute_readability(text):
     words = text.split()
     total_words = len(words)
     total_sentences = count_sentences(text)
+    total_syllables = count_syllables(words)
     
     print(total_words, 'words')
     print(total_sentences, 'sentences')
+    print(total_syllables, 'syllables')
 
 compute_readability(ch1text.text)
