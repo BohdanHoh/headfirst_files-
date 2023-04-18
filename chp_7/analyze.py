@@ -1,4 +1,4 @@
-import chp_1.ch1text as ch1text
+import chp_6.ch1text as ch1text
 
 #if __name__ == '__main__':
 #    print("Look, I'm the main program y'all")
