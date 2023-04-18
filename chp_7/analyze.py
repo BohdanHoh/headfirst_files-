@@ -1,8 +1,3 @@
-import chp_6.ch1text as ch1text
-
-#if __name__ == '__main__':
-#    print("Look, I'm the main program y'all")
-
 def count_syllables(words):
     count = 0
 
@@ -87,4 +82,7 @@ def compute_readability(text):
     
     output_results(score)
 
-compute_readability(ch1text.text)
+if __name__ == "__main__":
+    import ch1text
+    print('Chapter1 Text:')
+    compute_readability(ch1text.text)
