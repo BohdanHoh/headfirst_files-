@@ -1,7 +1,4 @@
-import chp_6.ch1text as ch1text
-
-#if __name__ == '__main__':
-#    print("Look, I'm the main program y'all")
+import ch1text
 
 def count_syllables(words):
     count = 0
