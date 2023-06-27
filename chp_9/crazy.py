@@ -1,10 +1,12 @@
 def make_crazy_lib(filename):
     try:
         file = open(filename, 'r')
+
         text = ''
 
         for line in file:
-            text = text + process_line(line) + '\n'
+            text = text + process_line(line)
+
         file.close()
 
         return text
@@ -37,9 +39,19 @@ def process_line(line):
             processed_line = processed_line + word + ' '
     return processed_line + '\n'
 
+def save_crazy_lib(filename, text):
+    try:
+        file = open(filename, 'w')
+        file.write(text)
+        file.close()
+    except:
+        print("Sorry, couldn't write file.", filename)
+        
 def main():
-    lib = make_crazy_lib('lib.txt')
-    print(lib)
+    filename = 'lib.txt'
+    lib = make_crazy_lib(filename)
+    if (lib != None):
+        save_crazy_lib('crazy_' + filename, lib)
 
 if __name__ == '__main__':
     main()
