@@ -1,14 +1,20 @@
 def make_crazy_lib(filename):
-    file = open(filename, 'r')
+    try:
+        file = open(filename, 'r')
+        text = ''
 
-    text = ''
+        for line in file:
+            text = text + process_line(line) + '\n'
+        file.close()
 
-    for line in file:
-        text = text + process_line(line) + '\n'
+        return text
 
-    file.close()
-
-    return text
+    except FileNotFoundError:
+        print("Sorry, couldn't find", filename + '.')
+    except IsADirectoryError:
+        print("Sorry", filename, 'is a directory.')
+    except:
+        print("Sorry, could not read", filename)
 
 placeholders = ['NOUN', 'ADJECTIVE', 'VERB_ING', 'VERB']
 
