@@ -8,13 +8,12 @@ def randomize(grid, width, height):
         for j in range(0, width):
             grid[i][j] = random.randint(0,1) 
 
+
 grid_model = [0] * height
 next_grid_model = [0] * height
 for i in range(height):
     grid_model[i] = [0] * width
-    next_grid_model[i] = [0] * width
-
-randomize(grid_model, width, height)
+    next_grid_model[i] = [1] * width
 
 def next_gen():
     global grid_model, next_grid_model
@@ -23,6 +22,7 @@ def next_gen():
         for j in range(0, width):
             cell = 0
             count = count_neighbors(grid_model, i, j)
+
 
             if grid_model[i][j] == 0:
                 if count == 3:
@@ -37,6 +37,7 @@ grid_model = next_grid_model
 next_grid_model = temp        
 
 def count_neighbors(grid, row, col):
+
    count = 0
    if row-1 >= 0:
         count = count + grid[row-1][col]
