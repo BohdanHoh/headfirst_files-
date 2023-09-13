@@ -14,6 +14,9 @@ class Dog:
         human_age = self.age * 7
         return human_age
 
+    def walk(self):
+        print(self.name, 'is walking')
+
     def __str__(self):
         return "I'm a dog named " + self.name
        
@@ -24,7 +27,10 @@ class ServiceDog(Dog):
         self.is_working = False
     
     def walk(self):
-        print(self.name, 'is helping its handler', self.handler, 'walk')
+        if self.is_working:
+            print(self.name, 'is helping its handler', self.handler, 'walk')
+        else:
+            Dog.walk(self)
 
     def bark(self):
         if self.is_working:
@@ -103,6 +109,21 @@ class Hotel:
             dog = self.kennel[dog_name]
             dog.bark()
 
+    def walking_service(self):
+        for dog_name in self.kennel:
+            dog = self.kennel[dog_name]
+            dog.walk()
+    
+    def hire_walker(self, walker):
+        if isinstance(walker, DogWalker):
+            self.walker = walker
+        else:
+            print('Sorry,', walker.name, ' is not a Dog Walker')
+    
+    def walking_service(self):
+        if self.walker != None:
+            self.walker.walk_the_dogs(self.kennel)
+
 class Cat():
     def __init__(self, name):
         self.name = name
@@ -110,20 +131,38 @@ class Cat():
     def meow(self):
         print(self.name, 'Says, "Meow"')
 
+class Person:
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return "I'm a person and my name is " + self.name
+
+class DogWalker(Person):
+    def __init__(self, name):
+        Person.__init__(self, name)
+
+    def walk_the_dogs(self, dogs):
+        for dog_name in dogs:
+            dogs[dog_name].walk()
+
 def test_code():
     codie = Dog('Codie', 12, 38)
     jackson = Dog('Jackson', 9, 12)
+    sparky = Dog('Sparky', 2, 14)
     rody = ServiceDog('Rody', 8, 38, 'Joseph')
-    frisbee = Frisbee('red')
+    rody.is_working = True
     dude = FrisbeeDog('Dude', 5, 20)
-    dude.catch(frisbee)
-
-    hotel = Hotel('Doggie Hotel')
+    
+    hotel = Hotel('Dogie Hotel')
     hotel.check_in(codie)
     hotel.check_in(jackson)
     hotel.check_in(rody)
     hotel.check_in(dude)
 
-    hotel.barktime()
+    joe = DogWalker('joe')
+    hotel.hire_walker(joe)
+
+    hotel.walking_service()
 
 test_code()
